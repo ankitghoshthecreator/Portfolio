@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ankit Ghosh — AI/ML Engineer</title>
+  <meta name="description" content="Portfolio of Ankit Ghosh — AI/ML Engineer specializing in Deep Learning, LLMs, Computer Vision and Distributed AI Systems. SRM IST 2027." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════ NAV ═══════════════ -->
+  <nav id="main-nav">
+    <div class="nav-logo">AG<span class="dot">.</span></div>
+    <ul class="nav-links">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects-section">Projects</a></li>
+      <li><a href="#experience-section">Experience</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="Ankit_Resume.pdf" download class="nav-resume-btn">Resume ↓</a>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu">☰</button>
+  </nav>
+
+  <!-- ═══════════════ HERO ═══════════════ -->
+  <section id="hero">
+    <div class="hero-noise"></div>
+    <div class="hero-content">
+      <p class="hero-tag">AI/ML Engineer · B.Tech AI · SRM IST 2027</p>
+      <h1 class="hero-name">
+        <span class="hero-name-line">Ankit</span>
+        <span class="hero-name-line accent">Ghosh</span>
+      </h1>
+      <p class="hero-subtitle">
+        Architecting <em>production AI systems</em> — from LLM curriculum training<br>
+        to distributed inference orchestration at scale.
+      </p>
+      <div class="hero-cta-row">
+        <a href="#projects-section" class="btn-primary">View Projects</a>
+        <a href="#contact" class="btn-ghost">Get in touch</a>
+      </div>
+      <div class="hero-pills">
+        <span>PyTorch</span><span>LLMs</span><span>Docker</span><span>Kubernetes</span><span>Spring Boot</span><span>Computer Vision</span>
+      </div>
+    </div>
+    <div class="hero-scroll-hint">
+      <span>scroll down</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ ABOUT ═══════════════ -->
+  <section id="about">
+    <div class="about-inner">
+      <div class="about-sketch-col">
+        <div class="sketch-avatar">
+          <div class="sa-circle"></div>
+          <div class="sa-initials">AG</div>
+          <div class="sa-deco sa-deco-1"></div>
+          <div class="sa-deco sa-deco-2"></div>
+        </div>
+        <div class="about-quick-facts">
+          <div class="qf-item"><span class="qf-icon">📍</span><span>Chennai, Tamil Nadu</span></div>
+          <div class="qf-item"><span class="qf-icon">🎓</span><span>SRM IST · B.Tech AI · 2027</span></div>
+          <div class="qf-item"><span class="qf-icon">📧</span><span>ankitghoshhello@gmail.com</span></div>
+          <div class="qf-item"><span class="qf-icon">📱</span><span>+91 6294230462</span></div>
+        </div>
+      </div>
+      <div class="about-text-col">
+        <p class="section-eyebrow">About Me</p>
+        <h2 class="section-heading">Building AI that ships<br><em>to production</em></h2>
+        <p class="about-bio">
+          I'm an AI/ML Software Engineer specializing in Deep Learning, Computer Vision, and Agentic AI systems.
+          My work spans curriculum-based LLM training, custom object detection, distributed inference orchestration,
+          and production-grade ML pipelines — all containerized and battle-tested.
+        </p>
+        <p class="about-bio">
+          Currently in my 3rd year at <strong>SRM Institute of Science & Technology</strong>, Kattankulathur,
+          pursuing B.Tech in Artificial Intelligence (CGPA 8.20/10). I build systems the way they should
+          be built — scalable, observable, and production-shaped from day one.
+        </p>
+        <div class="skills-grid">
+          <div class="skill-cat">
+            <h4>Languages</h4>
+            <div class="skill-tags">
+              <span>Python</span><span>Java</span><span>Go</span><span>C/C++</span>
+            </div>
+          </div>
+          <div class="skill-cat">
+            <h4>AI / ML</h4>
+            <div class="skill-tags">
+              <span>PyTorch</span><span>Transformers</span><span>YOLO</span><span>OpenCV</span><span>NLP</span><span>LLMs</span>
+            </div>
+          </div>
+          <div class="skill-cat">
+            <h4>Backend &amp; Infra</h4>
+            <div class="skill-tags">
+              <span>Spring Boot</span><span>FastAPI</span><span>Docker</span><span>Kubernetes</span><span>Redis</span><span>PostgreSQL</span>
+            </div>
+          </div>
+          <div class="skill-cat">
+            <h4>Frontend</h4>
+            <div class="skill-tags">
+              <span>React</span><span>TypeScript</span><span>Next.js</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ PROJECTS: MONITOR SECTION ═══════════════ -->
+  <section id="projects-section">
+    <p class="section-eyebrow center">Projects</p>
+    <h2 class="section-heading center">What I've built</h2>
+
+    <!-- MONITOR DEVICE -->
+    <div class="device-wrapper monitor-wrapper" id="monitor-device">
+      <div class="monitor-frame">
+        <div class="monitor-brand-strip">
+          <span>ANKIT<span class="brand-dot">·</span>OS</span>
+        </div>
+        <div class="monitor-screen-outer">
+          <div class="monitor-screen" id="monitor-screen">
+            <!-- Slide 1: AI / ML -->
+            <div class="project-slide active" data-slide="0">
+              <div class="slide-header">
+                <span class="slide-category">AI / ML</span>
+                <div class="slide-dots" id="monitor-slide-dots"></div>
+              </div>
+              <div class="slide-projects">
+
+                <div class="proj-card">
+                  <div class="proj-card-header">
+                    <h3 class="proj-title">CIRCLE</h3>
+                    <a href="https://github.com/ankitghoshthecreator/CIRCLE" target="_blank" class="proj-link">GitHub ↗</a>
+                  </div>
+                  <p class="proj-desc">Curriculum-based LLM training framework — fine-tuned GPT-2 with PyTorch + QLoRA through staged curricula, with a 70B critic agent closing the loop by generating targeted training data from model weaknesses.</p>
+                  <div class="proj-tags"><span>PyTorch</span><span>QLoRA</span><span>Docker</span><span>Kubernetes</span><span>Groq</span></div>
+                </div>
+
+                <div class="proj-card">
+                  <div class="proj-card-header">
+                    <h3 class="proj-title">SageRAG</h3>
+                    <a href="https://github.com/ankitghoshthecreator/SageRAG" target="_blank" class="proj-link">GitHub ↗</a>
+                  </div>
+                  <p class="proj-desc">Production RAG platform with hybrid retrieval (dense + keyword + cross-encoder reranking), fine-tuned LLM, OCR document ingestion, JWT auth, and full-stack React dashboard.</p>
+                  <div class="proj-tags"><span>FastAPI</span><span>Qdrant</span><span>LoRA</span><span>React</span><span>TypeScript</span></div>
+                </div>
+
+                <div class="proj-card">
+                  <div class="proj-card-header">
+                    <h3 class="proj-title">GeoNeural — MonoCar Detection</h3>
+                    <a href="https://github.com/ankitghoshthecreator/monoCar_detection" target="_blank" class="proj-link">GitHub ↗</a>
+                  </div>
+                  <p class="proj-desc">Monocular depth-based car detection system using neural architecture, research-grade implementation of geometric deep learning for autonomous perception.</p>
+                  <div class="proj-tags"><span>PyTorch</span><span>OpenCV</span><span>Computer Vision</span></div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Slide 2: Data Science -->
+            <div class="project-slide" data-slide="1">
+              <div class="slide-header">
+                <span class="slide-category">Data Science</span>
+                <div class="slide-dots" id="monitor-slide-dots-2"></div>
+              </div>
+              <div class="slide-projects">
+                <div class="proj-card">
+                  <div class="proj-card-header">
+                    <h3 class="proj-title">Adaptive Portfolio Optimization</h3>
+                    <a href="https://zenodo.org/records/17559546" target="_blank" class="proj-link">Publication ↗</a>
+                  </div>
+                  <p class="proj-desc">Stochastic approximation-based portfolio optimizer using Robbins–Monro + EWMA volatility forecasting. Achieved 22.8% annualized return and Sharpe ~1.0 on 10+ years of financial data.</p>
+                  <div class="proj-tags"><span>Python</span><span>Time Series</span><span>Stochastic Methods</span><span>Yahoo Finance</span></div>
+                </div>
+                <div class="proj-card highlight-card">
+                  <div class="proj-card-header">
+                    <h3 class="proj-title">RepoGuard AI</h3>
+                    <a href="https://github.com/ankitghoshthecreator/RepoGuard-AI" target="_blank" class="proj-link">GitHub ↗</a>
+                  </div>
+                  <p class="proj-desc">Agentic CI/CD code-review platform that auto-generates unit tests, PR summaries, and runs retrieval-based static analysis to reduce false positives.</p>
+                  <div class="proj-tags"><span>LLM Agents</span><span>Python</span><span>Docker</span><span>CI/CD</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 3: Web Dev -->
+            <div class="project-slide" data-slide="2">
+              <div class="slide-header">
+                <span class="slide-category">Web Dev</span>
+              </div>
+              <div class="slide-projects">
+                <div class="proj-card">
+                  <div class="proj-card-header">
+                    <h3 class="proj-title">DynaFare</h3>
+                    <a href="https://github.com/ankitghoshthecreator/DynaFare" target="_blank" class="proj-link">GitHub ↗</a>
+                  </div>
+                  <p class="proj-desc">AI-driven ride-pricing backend — Spring Boot REST + FastAPI ML inference service with XGBoost live pricing, PostgreSQL, Redis, Kubernetes, and Resilience4j circuit breaker.</p>
+                  <div class="proj-tags"><span>Spring Boot</span><span>FastAPI</span><span>XGBoost</span><span>Redis</span><span>AWS</span></div>
+                </div>
+                <div class="proj-card">
+                  <div class="proj-card-header">
+                    <h3 class="proj-title">SageRAG Dashboard</h3>
+                    <a href="https://github.com/ankitghoshthecreator/SageRAG" target="_blank" class="proj-link">GitHub ↗</a>
+                  </div>
+                  <p class="proj-desc">React/TypeScript front-end for the SageRAG enterprise knowledge assistant, with JWT auth, role-based access, and document upload UI.</p>
+                  <div class="proj-tags"><span>React</span><span>TypeScript</span><span>JWT</span><span>REST</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 4: Backend -->
+            <div class="project-slide" data-slide="3">
+              <div class="slide-header">
+                <span class="slide-category">Backend &amp; System Design</span>
+              </div>
+              <div class="slide-projects">
+                <div class="proj-card">
+                  <div class="proj-card-header">
+                    <h3 class="proj-title">Nexus Transaction Engine</h3>
+                    <a href="https://github.com/ankitghoshthecreator/transactionEngine" target="_blank" class="proj-link">GitHub ↗</a>
+                  </div>
+                  <p class="proj-desc">Exactly-once payment processing system with Redis-backed idempotency, double-entry ledger, and virtual threads. Built for high-volume financial workloads.</p>
+                  <div class="proj-tags"><span>Java 22</span><span>Spring Boot</span><span>Redis</span><span>SQLite</span><span>System Design</span></div>
+                </div>
+                <div class="proj-card">
+                  <div class="proj-card-header">
+                    <h3 class="proj-title">DynaFare Backend</h3>
+                    <a href="https://github.com/ankitghoshthecreator/DynaFare" target="_blank" class="proj-link">GitHub ↗</a>
+                  </div>
+                  <p class="proj-desc">Distributed microservices backend with MCP tools for GenAI agent consumption, Kubernetes HPA, circuit breaker, and AWS-shaped infrastructure.</p>
+                  <div class="proj-tags"><span>Java 17</span><span>Kubernetes</span><span>MCP</span><span>Resilience4j</span></div>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- end monitor-screen -->
+        </div>
+        <div class="monitor-nav">
+          <button class="mon-nav-btn" id="mon-prev" aria-label="Previous">←</button>
+          <div class="mon-slide-indicator">
+            <span class="mon-dot active" data-idx="0" title="AI/ML"></span>
+            <span class="mon-dot" data-idx="1" title="Data Science"></span>
+            <span class="mon-dot" data-idx="2" title="Web Dev"></span>
+            <span class="mon-dot" data-idx="3" title="Backend"></span>
+          </div>
+          <button class="mon-nav-btn" id="mon-next" aria-label="Next">→</button>
+        </div>
+        <div class="monitor-scroll-hint">
+          <span>scroll inside to switch categories</span>
+        </div>
+      </div>
+      <div class="monitor-stand">
+        <div class="monitor-neck"></div>
+        <div class="monitor-base"></div>
+      </div>
+    </div>
+
+    <!-- MOBILE DEVICE -->
+    <div class="device-section-label">
+      <div class="label-line"></div>
+      <span>Mobile Development</span>
+      <div class="label-line"></div>
+    </div>
+
+    <div class="device-wrapper mobile-wrapper" id="mobile-device">
+      <div class="mobile-frame">
+        <div class="mobile-notch"></div>
+        <div class="mobile-screen">
+          <div class="mobile-project-card">
+            <div class="mp-header">
+              <span class="mp-category">Mobile App</span>
+              <span class="mp-badge">Hackathon Project</span>
+            </div>
+            <h3 class="mp-title">Nexus Payment Engine</h3>
+            <p class="mp-sub">Mobile payment processing SDK</p>
+            <p class="mp-desc">
+              A payment processing engine with exactly-once guarantee, idempotency, and real-time transaction state machine — 
+              designed for mobile-first integration with clean REST interface and Redis-backed safety.
+            </p>
+            <div class="mp-stats">
+              <div class="mp-stat"><span class="stat-val">100%</span><span class="stat-lab">Idempotent</span></div>
+              <div class="mp-stat"><span class="stat-val">High</span><span class="stat-lab">Availability</span></div>
+              <div class="mp-stat"><span class="stat-val">University</span><span class="stat-lab">Hackathon</span></div>
+            </div>
+            <div class="mp-tags"><span>Java 22</span><span>Spring Boot</span><span>Redis</span><span>Virtual Threads</span></div>
+            <a href="https://github.com/ankitghoshthecreator/transactionEngine" target="_blank" class="mp-link">View on GitHub ↗</a>
+          </div>
+          <div class="mobile-nav-dots">
+            <span class="mob-dot active"></span>
+          </div>
+        </div>
+        <div class="mobile-home-indicator"></div>
+      </div>
+    </div>
+
+    <!-- BOOK / RESEARCH -->
+    <div class="device-section-label">
+      <div class="label-line"></div>
+      <span>Research &amp; Publications</span>
+      <div class="label-line"></div>
+    </div>
+
+    <div class="book-section" id="book-section">
+      <div class="book-wrapper">
+        <div class="book-spine"></div>
+        <div class="book-cover">
+          <div class="book-cover-inner">
+            <p class="book-cover-label">Research</p>
+            <h3 class="book-cover-title">Selected Works</h3>
+          </div>
+        </div>
+        <div class="book-pages">
+          <div class="book-page active">
+            <div class="book-page-inner">
+              <p class="page-num">01</p>
+              <span class="page-category">Publication</span>
+              <h4 class="page-title">Adaptive Portfolio Optimization using Robbins–Monro Stochastic Approximation</h4>
+              <p class="page-venue">Zenodo · Nov 2025</p>
+              <p class="page-abstract">
+                Developed an adaptive, time-series portfolio-optimization framework using Robbins–Monro stochastic approximation,
+                enabling real-time weight updates under non-stationary market conditions with EWMA-based volatility forecasting.
+                Achieved <strong>22.8% annualized return</strong> and Sharpe ratio ≈ 1.0 over 10+ years of financial data.
+              </p>
+              <a href="https://zenodo.org/records/17559546" target="_blank" class="page-link">Read Paper ↗</a>
+            </div>
+          </div>
+          <div class="book-page">
+            <div class="book-page-inner">
+              <p class="page-num">02</p>
+              <span class="page-category">Research Project</span>
+              <h4 class="page-title">GeoNeural — Monocular Car Detection</h4>
+              <p class="page-venue">Computer Vision · Autonomous Perception</p>
+              <p class="page-abstract">
+                Monocular depth-based vehicle detection using geometric deep learning.
+                Implements neural architecture for autonomous perception without stereo cameras,
+                exploring depth estimation and object localization from a single RGB feed.
+              </p>
+              <a href="https://github.com/ankitghoshthecreator/monoCar_detection" target="_blank" class="page-link">View Repo ↗</a>
+            </div>
+          </div>
+          <div class="book-page">
+            <div class="book-page-inner">
+              <p class="page-num">03</p>
+              <span class="page-category">Agentic AI Research</span>
+              <h4 class="page-title">CIRCLE — Closed-loop LLM Curriculum Training</h4>
+              <p class="page-venue">Independent Research · Jan 2026 – Present</p>
+              <p class="page-abstract">
+                An original agentic training framework where a 70B critic model autonomously generates training data
+                targeting weaknesses found in the fine-tuned model's outputs — turning evaluation directly into the
+                next round's dataset in a fully closed loop.
+              </p>
+              <a href="https://github.com/ankitghoshthecreator/CIRCLE" target="_blank" class="page-link">View Repo ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="book-nav">
+        <button class="book-nav-btn" id="book-prev">‹</button>
+        <span class="book-page-counter"><span id="book-cur">1</span> / 3</span>
+        <button class="book-nav-btn" id="book-next">›</button>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ═══════════════ EXPERIENCE ═══════════════ -->
+  <section id="experience-section">
+    <p class="section-eyebrow center">Experience</p>
+    <h2 class="section-heading center">Where I've worked</h2>
+
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-connector"></div>
+        <div class="tl-card">
+          <div class="tl-header">
+            <div>
+              <h3 class="tl-company">Sasken Technologies</h3>
+              <p class="tl-role">Intern — Software Developer (Full-Time)</p>
+              <p class="tl-location">📍 Sector V, Bidhannagar, Kolkata — Bengal Intelligent Park</p>
+            </div>
+            <span class="tl-date">Dec 2025 – Present</span>
+          </div>
+          <ul class="tl-bullets">
+            <li>Developed a zero-shot conversational learning framework for a robotic system, enabling real-time knowledge validation and incremental learning from live speech input.</li>
+            <li>Built a multilingual speech-understanding NLP pipeline with speaker-independent recognition, sentence normalization, and intent extraction for production reliability across languages.</li>
+            <li>Integrated cloud-based LLM inference with on-device memory systems, balancing latency and context-awareness for real-time human-robot interaction.</li>
+          </ul>
+          <div class="tl-tags"><span>NLP</span><span>LLMs</span><span>Robotics</span><span>Speech Recognition</span></div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-card">
+          <div class="tl-header">
+            <div>
+              <h3 class="tl-company">PRS Neurosciences</h3>
+              <p class="tl-role">ML Intern (Full-Time)</p>
+              <p class="tl-location">🌐 Virtual · <a href="https://prsneurosciences.com/" target="_blank">prsneurosciences.com</a></p>
+            </div>
+            <span class="tl-date">Jun 2025 – Present</span>
+          </div>
+          <ul class="tl-bullets">
+            <li>Built and shipped an automated image-preprocessing pipeline with pose-based subject isolation and background reduction, standardizing human-centric datasets.</li>
+            <li>Optimized storage and throughput using Guetzli/MozJPEG compression while preserving model-ready image quality.</li>
+            <li>Designed a modular, scalable single-image/batch processing workflow to improve downstream CV pipeline efficiency.</li>
+          </ul>
+          <div class="tl-tags"><span>Computer Vision</span><span>OpenCV</span><span>Image Processing</span><span>Python</span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════ EDUCATION + CERTS ═══════════════ -->
+  <section id="education-section">
+    <div class="edu-certs-grid">
+      <div class="edu-col">
+        <p class="section-eyebrow">Education</p>
+        <h2 class="section-heading">Academic<br><em>Journey</em></h2>
+        <div class="edu-cards">
+          <div class="edu-card primary">
+            <div class="edu-icon">🎓</div>
+            <div class="edu-info">
+              <h3>SRM Institute of Science &amp; Technology</h3>
+              <p class="edu-degree">B.Tech — Artificial Intelligence</p>
+              <p class="edu-year">2023 – 2027</p>
+              <p class="edu-cgpa">CGPA: <strong>8.20 / 10</strong></p>
+            </div>
+          </div>
+          <div class="edu-card">
+            <div class="edu-icon">📚</div>
+            <div class="edu-info">
+              <h3>Swarajya Senior Secondary School</h3>
+              <p class="edu-degree">12th — Computer Science, Alwar, Rajasthan</p>
+              <p class="edu-year">2022 – 2023</p>
+              <p class="edu-cgpa">Score: <strong>7.78</strong></p>
+            </div>
+          </div>
+          <div class="edu-card">
+            <div class="edu-icon">🏫</div>
+            <div class="edu-info">
+              <h3>H.S. Memorial School</h3>
+              <p class="edu-degree">10th — Computer Science, Janai, West Bengal</p>
+              <p class="edu-year">2020 – 2021</p>
+              <p class="edu-cgpa">Score: <strong>8.89</strong></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="certs-col">
+        <p class="section-eyebrow">Achievements</p>
+        <h2 class="section-heading">Certs &amp;<br><em>Awards</em></h2>
+        <div class="cert-cards">
+          <div class="cert-card award">
+            <div class="cert-badge">🏆</div>
+            <div class="cert-info">
+              <h4>1st Runner Up — Nitro Stack Hackathon</h4>
+              <p>NitroStack · Aug 2026</p>
+              <p class="cert-desc">Built a winning multi-agent MCP server automating industrial recovery — real-time anomaly detection, predictive maintenance, and ERP/MES/IoT integration.</p>
+              <a href="https://nitrostack.ai/university/6a4e238c82556efe6ab3cb6f/certificate/6a6af3f8f77f4626aab0f425" target="_blank" class="cert-link">View Certificate ↗</a>
+            </div>
+          </div>
+          <div class="cert-card">
+            <div class="cert-badge">📜</div>
+            <div class="cert-info">
+              <h4>Programming in Java</h4>
+              <p>NPTEL · Nov 2024</p>
+              <p class="cert-id">ID: NPTEL24CS105S252505015</p>
+              <a href="https://drive.google.com/file/d/1zhf_9a_gtrkqKoErrqI9Ibk773OAvJfw/view?usp=drivesdk" target="_blank" class="cert-link">View Certificate ↗</a>
+            </div>
+          </div>
+          <div class="cert-card">
+            <div class="cert-badge">🗄️</div>
+            <div class="cert-info">
+              <h4>Database Management System</h4>
+              <p>NPTEL · Sep 2025</p>
+              <p class="cert-id">ID: NPTEL25CS145S533211819</p>
+              <a href="https://drive.google.com/file/d/1skKhKAEoL0MXDhNYULJ65bPT-jH1eaUq/view?usp=drivesdk" target="_blank" class="cert-link">View Certificate ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ CONTACT ═══════════════ -->
+  <section id="contact">
+    <div class="contact-inner">
+      <div class="contact-left">
+        <p class="section-eyebrow">Contact</p>
+        <h2 class="section-heading">Let's build<br><em>something</em></h2>
+        <p class="contact-body">
+          Open to internships, research collaborations, and interesting AI/ML problems.
+          Feel free to reach out — I usually respond within 24 hours.
+        </p>
+        <div class="contact-details">
+          <a href="mailto:ankitghoshhello@gmail.com" class="contact-item">
+            <span class="ci-icon">✉</span>
+            <span>ankitghoshhello@gmail.com</span>
+          </a>
+          <a href="tel:+916294230462" class="contact-item">
+            <span class="ci-icon">📱</span>
+            <span>+91 6294230462</span>
+          </a>
+          <a href="https://github.com/ankitghoshthecreator" target="_blank" class="contact-item">
+            <span class="ci-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            </span>
+            <span>github.com/ankitghoshthecreator</span>
+          </a>
+        </div>
+      </div>
+      <div class="contact-right">
+        <form class="contact-form" id="contact-form" onsubmit="handleFormSubmit(event)">
+          <div class="form-group">
+            <label for="cf-name">Name</label>
+            <input type="text" id="cf-name" placeholder="Your name" required />
+          </div>
+          <div class="form-group">
+            <label for="cf-email">Email</label>
+            <input type="email" id="cf-email" placeholder="your@email.com" required />
+          </div>
+          <div class="form-group">
+            <label for="cf-message">Message</label>
+            <textarea id="cf-message" rows="5" placeholder="What would you like to talk about?" required></textarea>
+          </div>
+          <button type="submit" class="btn-primary full-width" id="cf-submit">Send Message</button>
+          <p class="form-note" id="form-success" style="display:none;">✓ Message sent! I'll get back to you soon.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ FOOTER ═══════════════ -->
+  <footer id="main-footer">
+    <div class="footer-inner">
+      <div class="footer-logo">AG<span class="dot">.</span></div>
+      <p class="footer-copy">© 2026 Ankit Ghosh · Crafted with care · Deployed on Vercel</p>
+      <div class="footer-links">
+        <a href="https://github.com/ankitghoshthecreator" target="_blank">GitHub</a>
+        <a href="mailto:ankitghoshhello@gmail.com">Email</a>
+        <a href="Ankit_Resume.pdf" download>Resume</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
