@@ -2,6 +2,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   initNav();
+  initHangingIDCard();
   initMonitorSlider();
   initBookNav();
   initScrollAnimations();
@@ -223,3 +224,184 @@ function handleFormSubmit(e) {
     e.target.reset();
   }, 4000);
 }
+
+/* ════════════════════════════════════════════
+   INTERACTIVE HANGING ID CARD PHYSICS
+   ════════════════════════════════════════════ */
+function initHangingIDCard() {
+  const wrapper = document.getElementById('id-card-wrapper');
+  const anchor = document.getElementById('lanyard-anchor');
+  const svgStrap = document.getElementById('lanyard-strap');
+  const svgInner = document.getElementById('lanyard-inner-line');
+  const cardContainer = document.getElementById('id-card-container');
+  const card3d = document.getElementById('id-card-3d');
+  
+  if (!wrapper || !cardContainer || !card3d || !svgStrap) return;
+
+  let isDragging = false;
+  let dragStartX = 0;
+  let dragStartY = 0;
+  let lastPointerX = 0;
+  let lastPointerY = 0;
+  let dragTimeStart = 0;
+
+  // Physics state
+  const restLength = 60;
+  let anchorPos = { x: 250, y: 15 };
+  let cardPos = { x: 250, y: anchorPos.y + restLength };
+  let vel = { x: 0, y: 0 };
+  let angleZ = 0;
+  let rotY = 0;
+  let rotYVel = 0;
+  let rotX = 0;
+  let ambientTime = Math.random() * 100;
+
+  function updateAnchorPosition() {
+    const rect = wrapper.getBoundingClientRect();
+    if (!rect.width) return;
+    const anchorRect = anchor.getBoundingClientRect();
+    anchorPos.x = anchorRect.left - rect.left + anchorRect.width / 2;
+    anchorPos.y = anchorRect.top - rect.top + anchorRect.height / 2;
+  }
+
+  updateAnchorPosition();
+  window.addEventListener('resize', updateAnchorPosition);
+
+  // Pointer interactions
+  function onPointerDown(e) {
+    isDragging = true;
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    
+    dragStartX = clientX;
+    dragStartY = clientY;
+    lastPointerX = clientX;
+    lastPointerY = clientY;
+    dragTimeStart = performance.now();
+    vel = { x: 0, y: 0 };
+    cardContainer.style.cursor = 'grabbing';
+  }
+
+  function onPointerMove(e) {
+    if (!isDragging) return;
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    
+    const wrapperRect = wrapper.getBoundingClientRect();
+    const targetX = clientX - wrapperRect.left;
+    const targetY = clientY - wrapperRect.top;
+
+    const dx = clientX - lastPointerX;
+    const dy = clientY - lastPointerY;
+
+    // Direct responsive drag tracking
+    cardPos.x += (targetX - cardPos.x) * 0.5;
+    cardPos.y += (targetY - cardPos.y) * 0.5;
+
+    vel.x = dx;
+    vel.y = dy;
+
+    // Spin accumulation on fast drag
+    rotYVel += dx * 0.75;
+
+    lastPointerX = clientX;
+    lastPointerY = clientY;
+  }
+
+  function onPointerUp() {
+    if (!isDragging) return;
+    isDragging = false;
+    cardContainer.style.cursor = 'grab';
+
+    const duration = performance.now() - dragTimeStart;
+    const distMoved = Math.hypot(lastPointerX - dragStartX, lastPointerY - dragStartY);
+
+    // Click/Tap flip or Flick spin
+    if (duration < 250 && distMoved < 8) {
+      rotYVel += 180;
+    } else if (Math.abs(vel.x) > 4) {
+      rotYVel += Math.sign(vel.x) * (Math.abs(vel.x) * 5);
+    }
+  }
+
+  cardContainer.addEventListener('mousedown', onPointerDown);
+  window.addEventListener('mousemove', onPointerMove);
+  window.addEventListener('mouseup', onPointerUp);
+
+  cardContainer.addEventListener('touchstart', onPointerDown, { passive: true });
+  window.addEventListener('touchmove', onPointerMove, { passive: true });
+  window.addEventListener('touchend', onPointerUp);
+
+  // Main physics loop
+  function physicsLoop() {
+    updateAnchorPosition();
+
+    if (!isDragging) {
+      const targetY = anchorPos.y + restLength;
+      const dx = cardPos.x - anchorPos.x;
+      const dy = cardPos.y - targetY;
+
+      const k = 0.05; // spring stiffness
+      const damping = 0.92; // friction damping
+      const gravity = 0.35; // gravity
+
+      const fx = -k * dx;
+      const fy = -k * dy + gravity;
+
+      vel.x = (vel.x + fx) * damping;
+      vel.y = (vel.y + fy) * damping;
+
+      cardPos.x += vel.x;
+      cardPos.y += vel.y;
+
+      // 3D rotation decay
+      rotY += rotYVel;
+      rotYVel *= 0.93;
+
+      // Z-axis pendulum angle & X-axis tilt
+      const targetAngleZ = Math.atan2(cardPos.x - anchorPos.x, Math.max(50, cardPos.y - anchorPos.y)) * (180 / Math.PI);
+      angleZ += (targetAngleZ - angleZ) * 0.15;
+
+      const targetRotX = Math.min(20, Math.max(-20, vel.y * 1.2));
+      rotX += (targetRotX - rotX) * 0.15;
+
+      // Gentle ambient idle swing when still
+      if (Math.abs(vel.x) < 0.15 && Math.abs(rotYVel) < 0.2 && Math.abs(dx) < 3) {
+        ambientTime += 0.025;
+        cardPos.x = anchorPos.x + Math.sin(ambientTime) * 6;
+        angleZ = Math.sin(ambientTime) * 2.5;
+      }
+    } else {
+      rotY += rotYVel;
+      rotYVel *= 0.92;
+
+      const targetAngleZ = Math.atan2(cardPos.x - anchorPos.x, Math.max(40, cardPos.y - anchorPos.y)) * (180 / Math.PI);
+      angleZ += (targetAngleZ - angleZ) * 0.25;
+      rotX = Math.min(25, Math.max(-25, vel.y * 1.5));
+    }
+
+    // Apply 3D transforms
+    const cardWidth = cardContainer.offsetWidth || 300;
+    const leftOffset = cardPos.x - cardWidth / 2;
+    const topOffset = cardPos.y;
+
+    cardContainer.style.transform = `translate3d(${leftOffset}px, ${topOffset}px, 0px) rotateZ(${angleZ}deg) rotateX(${rotX}deg)`;
+    card3d.style.transform = `rotateY(${rotY}deg)`;
+
+    // Draw flexible Lanyard cable path
+    const clipHoleX = cardPos.x;
+    const clipHoleY = cardPos.y + 16;
+
+    const midX = (anchorPos.x + clipHoleX) / 2;
+    const midY = (anchorPos.y + clipHoleY) / 2 + Math.max(0, 15 - Math.hypot(clipHoleX - anchorPos.x, clipHoleY - anchorPos.y) * 0.08);
+
+    const pathD = `M ${anchorPos.x} ${anchorPos.y} Q ${midX} ${midY}, ${clipHoleX} ${clipHoleY}`;
+    svgStrap.setAttribute('d', pathD);
+    if (svgInner) svgInner.setAttribute('d', pathD);
+
+    requestAnimationFrame(physicsLoop);
+  }
+
+  requestAnimationFrame(physicsLoop);
+}
+

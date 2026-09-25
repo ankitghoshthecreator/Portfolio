@@ -31,10 +31,125 @@
     <div class="hero-noise"></div>
     <div class="hero-content">
       <p class="hero-tag">AI/ML Engineer · B.Tech AI · SRM IST 2027</p>
-      <h1 class="hero-name">
-        <span class="hero-name-line">Ankit</span>
-        <span class="hero-name-line accent">Ghosh</span>
-      </h1>
+      <!-- Interactive 3D Hanging ID Card -->
+      <div class="id-card-wrapper" id="id-card-wrapper">
+        <div class="lanyard-anchor" id="lanyard-anchor"></div>
+        <svg class="lanyard-svg" id="lanyard-svg">
+          <defs>
+            <linearGradient id="lanyard-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="var(--accent)" />
+              <stop offset="100%" stop-color="var(--ink)" />
+            </linearGradient>
+            <filter id="string-shadow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="2" dy="4" stdDeviation="3" flood-opacity="0.15"/>
+            </filter>
+          </defs>
+          <path id="lanyard-strap" d="" stroke="url(#lanyard-grad)" stroke-width="6" fill="none" stroke-linecap="round" filter="url(#string-shadow)" />
+          <path id="lanyard-inner-line" d="" stroke="var(--accent-light)" stroke-width="1.5" stroke-dasharray="4,4" fill="none" opacity="0.8" />
+        </svg>
+
+        <div class="id-card-stage">
+          <div class="id-card-container" id="id-card-container">
+            <div class="id-card-3d" id="id-card-3d">
+              <!-- FRONT FACE -->
+              <div class="id-card-face id-card-front">
+                <div class="id-card-clip-hole">
+                  <div class="id-clip-ring"></div>
+                  <div class="id-clip-latch"></div>
+                </div>
+
+                <div class="id-card-top-bar">
+                  <span class="id-org-badge">SRM IST · AI/ML DEPT</span>
+                  <span class="id-pass-type">OFFICIAL PASS</span>
+                </div>
+
+                <div class="id-card-main-content">
+                  <div class="id-avatar-frame">
+                    <div class="id-avatar-circle">
+                      <span>AG</span>
+                    </div>
+                    <div class="id-status-pill">
+                      <span class="status-dot"></span> ONLINE
+                    </div>
+                  </div>
+
+                  <div class="id-text-details">
+                    <span class="id-label">AI / ML ENGINEER</span>
+                    <h1 class="id-name">
+                      ANKIT <span class="id-name-accent">GHOSH</span>
+                    </h1>
+                    <p class="id-tagline">Deep Learning · Agentic Systems · CV</p>
+                  </div>
+                </div>
+
+                <div class="id-card-bottom-grid">
+                  <div class="id-field">
+                    <span class="field-label">ID NO</span>
+                    <span class="field-val">AG-2027-AI</span>
+                  </div>
+                  <div class="id-field">
+                    <span class="field-label">BATCH</span>
+                    <span class="field-val">2023 - 2027</span>
+                  </div>
+                  <div class="id-field">
+                    <span class="field-label">ROLE</span>
+                    <span class="field-val">AI Architect</span>
+                  </div>
+                  <div class="id-field">
+                    <span class="field-label">ACCESS</span>
+                    <span class="field-val">LEVEL 5</span>
+                  </div>
+                </div>
+
+                <div class="id-card-footer">
+                  <div class="id-barcode-graphic"></div>
+                  <div class="id-chip-graphic">
+                    <div class="chip-inner"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- BACK FACE -->
+              <div class="id-card-face id-card-back">
+                <div class="id-card-clip-hole">
+                  <div class="id-clip-ring"></div>
+                </div>
+
+                <div class="id-mag-stripe"></div>
+
+                <div class="id-back-content">
+                  <div class="id-qr-section">
+                    <div class="id-qr-box">
+                      <div class="qr-pattern"></div>
+                    </div>
+                    <span class="qr-label">SCAN TO VERIFY CREDENTIALS &amp; REPOS</span>
+                  </div>
+
+                  <div class="id-back-info">
+                    <p class="id-back-heading">AUTHENTICATED CREDENTIALS</p>
+                    <p class="id-back-desc">
+                      Specializing in curriculum LLM training, computer vision pipelines, &amp; high-throughput backend architecture.
+                    </p>
+                    <div class="id-back-links">
+                      <span>GitHub: @ankitghoshthecreator</span>
+                      <span>SRM IST B.Tech AI (CGPA 8.20)</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="id-back-footer">
+                  <span>AUTHORIZED SIGNATURE: <em>Ankit Ghosh</em></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="id-card-hint" id="id-card-hint">
+          <span class="hint-icon">🖐️</span>
+          <span>Hold &amp; Swing Badge • Drag fast to Spin/Flip</span>
+        </div>
+      </div>
       <p class="hero-subtitle">
         Architecting <em>production AI systems</em> — from LLM curriculum training<br>
         to distributed inference orchestration at scale.
