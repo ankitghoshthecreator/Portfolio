@@ -334,48 +334,32 @@ function initHangingIDCard() {
   window.addEventListener('touchmove', onPointerMove, { passive: true });
   window.addEventListener('touchend', onPointerUp);
 
-  // Main physics loop
+  // Main physics & rendering loop (CRITICALLY DAMPED — ZERO SHAKING / SWINGING AT REST)
   function physicsLoop() {
     if (!isDragging) {
       const targetY = anchorPos.y + restLength;
-      const dx = cardPos.x - anchorPos.x;
-      const dy = cardPos.y - targetY;
 
-      const k = 0.04; // smooth spring stiffness
-      const damping = 0.90; // strong damping for rock-solid stability
-      const gravity = 0.3; // gravity force
+      // Exponential lerp glide back to center (monotonic decay — zero overshoot/swinging/zigzagging!)
+      cardPos.x += (anchorPos.x - cardPos.x) * 0.15;
+      cardPos.y += (targetY - cardPos.y) * 0.15;
 
-      const fx = -k * dx;
-      const fy = -k * dy + gravity;
+      // Smoothly decay tilt angles
+      angleZ *= 0.82;
+      rotX *= 0.82;
 
-      vel.x = (vel.x + fx) * damping;
-      vel.y = (vel.y + fy) * damping;
-
-      cardPos.x += vel.x;
-      cardPos.y += vel.y;
-
-      // Spin rotation & friction
+      // 3D spin rotation & friction
       rotY += rotYVel;
-      rotYVel *= 0.92;
+      rotYVel *= 0.88;
 
-      // Snap spin rotation to rest flat (0 or 180 deg) when almost stopped
-      if (Math.abs(rotYVel) < 0.05) {
+      // Snap spin rotation cleanly to flat face (0° or 180°) when slow
+      if (Math.abs(rotYVel) < 0.1) {
         rotYVel = 0;
         const targetRotY = Math.round(rotY / 180) * 180;
-        rotY += (targetRotY - rotY) * 0.15;
+        rotY += (targetRotY - rotY) * 0.25;
       }
 
-      // Calculate tilt angles based on position and movement
-      const targetAngleZ = Math.atan2(cardPos.x - anchorPos.x, Math.max(50, cardPos.y - anchorPos.y)) * (180 / Math.PI);
-      angleZ += (targetAngleZ - angleZ) * 0.15;
-
-      const targetRotX = Math.min(15, Math.max(-15, vel.y * 1.0));
-      rotX += (targetRotX - rotX) * 0.15;
-
-      // Lock to exact rest position when small motion remains (no jitter/shaking!)
-      if (Math.abs(vel.x) < 0.05 && Math.abs(vel.y) < 0.05 && Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5) {
-        vel.x = 0;
-        vel.y = 0;
+      // Hard stop lock when close to resting center (rock-solid, 100% still)
+      if (Math.abs(cardPos.x - anchorPos.x) < 0.3 && Math.abs(cardPos.y - targetY) < 0.3) {
         cardPos.x = anchorPos.x;
         cardPos.y = targetY;
         angleZ = 0;
@@ -383,7 +367,7 @@ function initHangingIDCard() {
       }
     } else {
       rotY += rotYVel;
-      rotYVel *= 0.92;
+      rotYVel *= 0.90;
 
       const targetAngleZ = Math.atan2(cardPos.x - anchorPos.x, Math.max(40, cardPos.y - anchorPos.y)) * (180 / Math.PI);
       angleZ += (targetAngleZ - angleZ) * 0.25;
@@ -395,7 +379,7 @@ function initHangingIDCard() {
     const leftOffset = cardPos.x - cardWidth / 2;
     const topOffset = cardPos.y;
 
-    cardContainer.style.transform = `translate3d(${leftOffset}px, ${topOffset}px, 0px) rotateZ(${angleZ.toFixed(2)}deg) rotateX(${rotX.toFixed(2)}deg)`;
+    cardContainer.style.transform = `translate3d(${leftOffset.toFixed(2)}px, ${topOffset.toFixed(2)}px, 0px) rotateZ(${angleZ.toFixed(2)}deg) rotateX(${rotX.toFixed(2)}deg)`;
     card3d.style.transform = `rotateY(${rotY.toFixed(2)}deg)`;
 
     // Draw Lanyard cable path
@@ -405,7 +389,7 @@ function initHangingIDCard() {
     const midX = (anchorPos.x + clipHoleX) / 2;
     const midY = (anchorPos.y + clipHoleY) / 2 + Math.max(0, 15 - Math.hypot(clipHoleX - anchorPos.x, clipHoleY - anchorPos.y) * 0.08);
 
-    const pathD = `M ${anchorPos.x} ${anchorPos.y} Q ${midX} ${midY}, ${clipHoleX} ${clipHoleY}`;
+    const pathD = `M ${anchorPos.x.toFixed(2)} ${anchorPos.y.toFixed(2)} Q ${midX.toFixed(2)} ${midY.toFixed(2)}, ${clipHoleX.toFixed(2)} ${clipHoleY.toFixed(2)}`;
     svgStrap.setAttribute('d', pathD);
     if (svgInner) svgInner.setAttribute('d', pathD);
 
