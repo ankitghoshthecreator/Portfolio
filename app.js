@@ -226,7 +226,7 @@ function handleFormSubmit(e) {
 }
 
 /* ════════════════════════════════════════════
-   INTERACTIVE HANGING ID CARD PHYSICS
+   INTERACTIVE HANGING ID CARD PHYSICS (STABLE & SMOOTH)
    ════════════════════════════════════════════ */
 function initHangingIDCard() {
   const wrapper = document.getElementById('id-card-wrapper');
@@ -254,7 +254,6 @@ function initHangingIDCard() {
   let rotY = 0;
   let rotYVel = 0;
   let rotX = 0;
-  let ambientTime = Math.random() * 100;
 
   function updateAnchorPosition() {
     const rect = wrapper.getBoundingClientRect();
@@ -264,11 +263,14 @@ function initHangingIDCard() {
     anchorPos.y = anchorRect.top - rect.top + anchorRect.height / 2;
   }
 
+  // Calculate anchor coordinates on setup, resize, and scroll (not inside RAF loop)
   updateAnchorPosition();
   window.addEventListener('resize', updateAnchorPosition);
+  window.addEventListener('scroll', updateAnchorPosition, { passive: true });
 
   // Pointer interactions
   function onPointerDown(e) {
+    updateAnchorPosition();
     isDragging = true;
     const clientX = e.touches ? e.touches[0].clientX : e.clientX;
     const clientY = e.touches ? e.touches[0].clientY : e.clientY;
@@ -295,14 +297,14 @@ function initHangingIDCard() {
     const dy = clientY - lastPointerY;
 
     // Direct responsive drag tracking
-    cardPos.x += (targetX - cardPos.x) * 0.5;
-    cardPos.y += (targetY - cardPos.y) * 0.5;
+    cardPos.x += (targetX - cardPos.x) * 0.45;
+    cardPos.y += (targetY - cardPos.y) * 0.45;
 
     vel.x = dx;
     vel.y = dy;
 
     // Spin accumulation on fast drag
-    rotYVel += dx * 0.75;
+    rotYVel += dx * 0.6;
 
     lastPointerX = clientX;
     lastPointerY = clientY;
@@ -320,7 +322,7 @@ function initHangingIDCard() {
     if (duration < 250 && distMoved < 8) {
       rotYVel += 180;
     } else if (Math.abs(vel.x) > 4) {
-      rotYVel += Math.sign(vel.x) * (Math.abs(vel.x) * 5);
+      rotYVel += Math.sign(vel.x) * (Math.abs(vel.x) * 4);
     }
   }
 
@@ -334,16 +336,14 @@ function initHangingIDCard() {
 
   // Main physics loop
   function physicsLoop() {
-    updateAnchorPosition();
-
     if (!isDragging) {
       const targetY = anchorPos.y + restLength;
       const dx = cardPos.x - anchorPos.x;
       const dy = cardPos.y - targetY;
 
-      const k = 0.05; // spring stiffness
-      const damping = 0.92; // friction damping
-      const gravity = 0.35; // gravity
+      const k = 0.04; // smooth spring stiffness
+      const damping = 0.90; // strong damping for rock-solid stability
+      const gravity = 0.3; // gravity force
 
       const fx = -k * dx;
       const fy = -k * dy + gravity;
@@ -354,22 +354,32 @@ function initHangingIDCard() {
       cardPos.x += vel.x;
       cardPos.y += vel.y;
 
-      // 3D rotation decay
+      // Spin rotation & friction
       rotY += rotYVel;
-      rotYVel *= 0.93;
+      rotYVel *= 0.92;
 
-      // Z-axis pendulum angle & X-axis tilt
+      // Snap spin rotation to rest flat (0 or 180 deg) when almost stopped
+      if (Math.abs(rotYVel) < 0.05) {
+        rotYVel = 0;
+        const targetRotY = Math.round(rotY / 180) * 180;
+        rotY += (targetRotY - rotY) * 0.15;
+      }
+
+      // Calculate tilt angles based on position and movement
       const targetAngleZ = Math.atan2(cardPos.x - anchorPos.x, Math.max(50, cardPos.y - anchorPos.y)) * (180 / Math.PI);
       angleZ += (targetAngleZ - angleZ) * 0.15;
 
-      const targetRotX = Math.min(20, Math.max(-20, vel.y * 1.2));
+      const targetRotX = Math.min(15, Math.max(-15, vel.y * 1.0));
       rotX += (targetRotX - rotX) * 0.15;
 
-      // Gentle ambient idle swing when still
-      if (Math.abs(vel.x) < 0.15 && Math.abs(rotYVel) < 0.2 && Math.abs(dx) < 3) {
-        ambientTime += 0.025;
-        cardPos.x = anchorPos.x + Math.sin(ambientTime) * 6;
-        angleZ = Math.sin(ambientTime) * 2.5;
+      // Lock to exact rest position when small motion remains (no jitter/shaking!)
+      if (Math.abs(vel.x) < 0.05 && Math.abs(vel.y) < 0.05 && Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5) {
+        vel.x = 0;
+        vel.y = 0;
+        cardPos.x = anchorPos.x;
+        cardPos.y = targetY;
+        angleZ = 0;
+        rotX = 0;
       }
     } else {
       rotY += rotYVel;
@@ -377,18 +387,18 @@ function initHangingIDCard() {
 
       const targetAngleZ = Math.atan2(cardPos.x - anchorPos.x, Math.max(40, cardPos.y - anchorPos.y)) * (180 / Math.PI);
       angleZ += (targetAngleZ - angleZ) * 0.25;
-      rotX = Math.min(25, Math.max(-25, vel.y * 1.5));
+      rotX = Math.min(20, Math.max(-20, vel.y * 1.2));
     }
 
-    // Apply 3D transforms
+    // Apply 3D transforms smoothly
     const cardWidth = cardContainer.offsetWidth || 300;
     const leftOffset = cardPos.x - cardWidth / 2;
     const topOffset = cardPos.y;
 
-    cardContainer.style.transform = `translate3d(${leftOffset}px, ${topOffset}px, 0px) rotateZ(${angleZ}deg) rotateX(${rotX}deg)`;
-    card3d.style.transform = `rotateY(${rotY}deg)`;
+    cardContainer.style.transform = `translate3d(${leftOffset}px, ${topOffset}px, 0px) rotateZ(${angleZ.toFixed(2)}deg) rotateX(${rotX.toFixed(2)}deg)`;
+    card3d.style.transform = `rotateY(${rotY.toFixed(2)}deg)`;
 
-    // Draw flexible Lanyard cable path
+    // Draw Lanyard cable path
     const clipHoleX = cardPos.x;
     const clipHoleY = cardPos.y + 16;
 
