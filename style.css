@@ -1234,9 +1234,55 @@ section { position: relative; }
   transition: all 0.2s;
 }
 .mp-link:hover { background: var(--ink); color: var(--cream); }
-.mobile-nav-dots { display: flex; gap: 0.4rem; justify-content: center; margin-top: 0.75rem; }
-.mob-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ink-faint); }
-.mob-dot.active { background: var(--accent); }
+.mobile-project-card {
+  display: none;
+  animation: slideIn 0.35s ease;
+}
+.mobile-project-card.active {
+  display: block;
+}
+.mobile-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 0.85rem;
+}
+.mob-nav-btn {
+  background: var(--cream);
+  border: 1px solid var(--cream-darker);
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--ink-mid);
+  cursor: pointer;
+  transition: all 0.2s;
+  padding: 0;
+  line-height: 1;
+}
+.mob-nav-btn:hover {
+  background: var(--ink);
+  color: var(--cream);
+  border-color: var(--ink);
+}
+.mobile-nav-dots { display: flex; gap: 0.4rem; justify-content: center; align-items: center; }
+.mob-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--ink-faint);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.mob-dot.active {
+  background: var(--accent);
+  transform: scale(1.25);
+}
 
 /* ──── BOOK / RESEARCH ──── */
 .book-section {

@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initHangingIDCard();
   initMonitorSlider();
   initBookNav();
+  initMobileCarousel();
   initScrollAnimations();
   initMonitorScrollCapture();
 });
@@ -64,18 +65,23 @@ function initMonitorSlider() {
   const dots = document.querySelectorAll('.mon-dot');
   const prevBtn = document.getElementById('mon-prev');
   const nextBtn = document.getElementById('mon-next');
-  let current = 0;
 
-  function goTo(idx) {
-    slides[current].classList.remove('active');
-    dots[current].classList.remove('active');
-    current = (idx + slides.length) % slides.length;
-    slides[current].classList.add('active');
-    dots[current].classList.add('active');
+  function getCurrent() {
+    const idx = Array.from(slides).findIndex(s => s.classList.contains('active'));
+    return idx >= 0 ? idx : 0;
   }
 
-  prevBtn.addEventListener('click', () => goTo(current - 1));
-  nextBtn.addEventListener('click', () => goTo(current + 1));
+  function goTo(idx) {
+    const current = getCurrent();
+    slides[current].classList.remove('active');
+    if (dots[current]) dots[current].classList.remove('active');
+    const next = (idx + slides.length) % slides.length;
+    slides[next].classList.add('active');
+    if (dots[next]) dots[next].classList.add('active');
+  }
+
+  if (prevBtn) prevBtn.addEventListener('click', () => goTo(getCurrent() - 1));
+  if (nextBtn) nextBtn.addEventListener('click', () => goTo(getCurrent() + 1));
 
   dots.forEach(dot => {
     dot.addEventListener('click', () => {
@@ -86,11 +92,12 @@ function initMonitorSlider() {
   // Keyboard nav when monitor is focused
   document.addEventListener('keydown', (e) => {
     const monitorEl = document.getElementById('monitor-device');
+    if (!monitorEl) return;
     const rect = monitorEl.getBoundingClientRect();
     const inView = rect.top < window.innerHeight && rect.bottom > 0;
     if (!inView) return;
-    if (e.key === 'ArrowRight') goTo(current + 1);
-    if (e.key === 'ArrowLeft') goTo(current - 1);
+    if (e.key === 'ArrowRight') goTo(getCurrent() + 1);
+    if (e.key === 'ArrowLeft') goTo(getCurrent() - 1);
   });
 }
 
@@ -101,40 +108,48 @@ function initMonitorScrollCapture() {
   const monitorScreen = document.getElementById('monitor-screen');
   const slides = document.querySelectorAll('.project-slide');
   const dots = document.querySelectorAll('.mon-dot');
-  let current = 0;
   let locked = false;
-  let lastDelta = 0;
 
-  function goTo(idx) {
-    slides[current].classList.remove('active');
-    dots[current].classList.remove('active');
-    current = (idx + slides.length) % slides.length;
-    slides[current].classList.add('active');
-    dots[current].classList.add('active');
+  function getCurrent() {
+    const idx = Array.from(slides).findIndex(s => s.classList.contains('active'));
+    return idx >= 0 ? idx : 0;
   }
 
-  monitorScreen.addEventListener('wheel', (e) => {
-    e.preventDefault();
-    if (locked) return;
-    locked = true;
-    if (e.deltaY > 0) {
-      goTo(current + 1);
-    } else {
-      goTo(current - 1);
-    }
-    setTimeout(() => { locked = false; }, 700);
-  }, { passive: false });
+  function goTo(idx) {
+    const current = getCurrent();
+    slides[current].classList.remove('active');
+    if (dots[current]) dots[current].classList.remove('active');
+    const next = (idx + slides.length) % slides.length;
+    slides[next].classList.add('active');
+    if (dots[next]) dots[next].classList.add('active');
+  }
 
-  // Touch swipe
-  let touchStartX = 0;
-  monitorScreen.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; });
-  monitorScreen.addEventListener('touchend', (e) => {
-    const dx = touchStartX - e.changedTouches[0].clientX;
-    if (Math.abs(dx) > 40) {
-      if (dx > 0) goTo(current + 1);
-      else goTo(current - 1);
-    }
-  });
+  if (monitorScreen) {
+    monitorScreen.addEventListener('wheel', (e) => {
+      if (locked) return;
+      const atBottom = monitorScreen.scrollHeight - monitorScreen.scrollTop <= monitorScreen.clientHeight + 5;
+      const atTop = monitorScreen.scrollTop <= 5;
+
+      if ((e.deltaY > 0 && atBottom) || (e.deltaY < 0 && atTop)) {
+        e.preventDefault();
+        locked = true;
+        if (e.deltaY > 0) goTo(getCurrent() + 1);
+        else goTo(getCurrent() - 1);
+        setTimeout(() => { locked = false; }, 600);
+      }
+    }, { passive: false });
+
+    // Touch swipe
+    let touchStartX = 0;
+    monitorScreen.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; });
+    monitorScreen.addEventListener('touchend', (e) => {
+      const dx = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(dx) > 40) {
+        if (dx > 0) goTo(getCurrent() + 1);
+        else goTo(getCurrent() - 1);
+      }
+    });
+  }
 }
 
 /* ════════════════════════════════════════════
@@ -145,18 +160,66 @@ function initBookNav() {
   const prevBtn = document.getElementById('book-prev');
   const nextBtn = document.getElementById('book-next');
   const curSpan = document.getElementById('book-cur');
+  if (!pages.length) return;
+
   let current = 0;
 
   function goTo(idx) {
     pages[current].classList.remove('active');
     current = Math.max(0, Math.min(idx, pages.length - 1));
     pages[current].classList.add('active');
-    curSpan.textContent = current + 1;
+    if (curSpan) curSpan.textContent = current + 1;
   }
 
-  prevBtn.addEventListener('click', () => goTo(current - 1));
-  nextBtn.addEventListener('click', () => goTo(current + 1));
+  if (prevBtn) prevBtn.addEventListener('click', () => goTo(current - 1));
+  if (nextBtn) nextBtn.addEventListener('click', () => goTo(current + 1));
 }
+
+/* ════════════════════════════════════════════
+   MOBILE CAROUSEL (BangluPay ↔ Larder)
+   ════════════════════════════════════════════ */
+function initMobileCarousel() {
+  const cards = document.querySelectorAll('.mobile-project-card');
+  const dots = document.querySelectorAll('.mob-dot');
+  const prevBtn = document.getElementById('mob-prev');
+  const nextBtn = document.getElementById('mob-next');
+  if (!cards.length) return;
+
+  let current = 0;
+
+  function goTo(idx) {
+    cards[current].classList.remove('active');
+    if (dots[current]) dots[current].classList.remove('active');
+    current = (idx + cards.length) % cards.length;
+    cards[current].classList.add('active');
+    if (dots[current]) dots[current].classList.add('active');
+  }
+
+  if (prevBtn) prevBtn.addEventListener('click', () => goTo(current - 1));
+  if (nextBtn) nextBtn.addEventListener('click', () => goTo(current + 1));
+
+  dots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      const idx = parseInt(dot.dataset.mobIdx);
+      if (!isNaN(idx)) goTo(idx);
+    });
+  });
+
+  // Touch swipe on mobile screen
+  const mobileScreen = document.querySelector('.mobile-screen');
+  if (mobileScreen) {
+    let touchStartX = 0;
+    mobileScreen.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    mobileScreen.addEventListener('touchend', (e) => {
+      const dx = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(dx) > 30) {
+        if (dx > 0) goTo(current + 1);
+        else goTo(current - 1);
+      }
+    });
+  }
+}
+
 
 /* ════════════════════════════════════════════
    SCROLL ANIMATIONS (fade-up)
